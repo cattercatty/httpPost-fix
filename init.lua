@@ -38,11 +38,18 @@ local reqfunc = (syn or http).request;
 local libtype = syn and "syn" or "http";
 local hooked = {};
 local proxied = {};
+
+local function hasHttpPost()
+    return pcall(function()
+        return game.HttpPost
+    end) and true or nil;
+end;
+
 local methods = {
     HttpGet = not syn,
     HttpGetAsync = not syn,
     GetObjects = true,
-    HttpPost = not syn,
+    HttpPost = hasHttpPost(),
     HttpPostAsync = not syn
 }
 
